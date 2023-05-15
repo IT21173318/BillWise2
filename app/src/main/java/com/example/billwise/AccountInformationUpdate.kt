@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class AccountInformationUpdate : AppCompatActivity() {
+    //declare variables and create connection with database
     private lateinit var binding: ActivityAccountInformationUpdateBinding
     private lateinit var database: DatabaseReference
 
@@ -26,12 +27,13 @@ class AccountInformationUpdate : AppCompatActivity() {
         setContentView(binding.root)
 
         val sessionManager = SessionManager(this)
-
+        //Rederect into login
         if (!sessionManager.isLoggedIn()) {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
             finish()
         }
+        //connect database and get details into email
 
         val userEmail = sessionManager.getEmail()
         database = FirebaseDatabase.getInstance().reference
@@ -60,12 +62,12 @@ class AccountInformationUpdate : AppCompatActivity() {
                     }
                 }
             }
-
+            //create function cancle method
             override fun onCancelled(error: DatabaseError) {
                 Log.e(ContentValues.TAG, "Failed to read user details", error.toException())
             }
         })
-
+        //delete users in database
         binding.btnDelete.setOnClickListener {
             // Show a confirmation dialog
             AlertDialog.Builder(this)
@@ -93,7 +95,7 @@ class AccountInformationUpdate : AppCompatActivity() {
                                 finish()
                             }
                         }
-
+                        //get error message
                         override fun onCancelled(error: DatabaseError) {
                             Log.e(ContentValues.TAG, "Failed to delete user details", error.toException())
                             // Show an error message
@@ -109,7 +111,7 @@ class AccountInformationUpdate : AppCompatActivity() {
                 .show()
         }
 
-
+        //Done and share data into data base
         binding.btnDone.setOnClickListener {
             val name = binding.tvNameAcc.text.toString()
             val phoneNumber = binding.tvPhone.text.toString()
@@ -142,7 +144,7 @@ class AccountInformationUpdate : AppCompatActivity() {
                         finish()
                     }
                 }
-
+                //Error massege
                 override fun onCancelled(error: DatabaseError) {
                     Log.e(ContentValues.TAG, "Failed to update user details", error.toException())
                     // Show an error message
@@ -154,11 +156,11 @@ class AccountInformationUpdate : AppCompatActivity() {
                 }
             })
 
-
+            //redirect in to MainActivity
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
-
+        //redirect in to AccInformation
         binding.btnBackEditAccount.setOnClickListener{
             val intent = Intent(this, AccInfomation::class.java)
             startActivity(intent)
