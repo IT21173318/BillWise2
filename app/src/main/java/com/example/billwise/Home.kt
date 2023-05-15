@@ -41,6 +41,21 @@ class Home : Fragment() {
             startActivity(intent)
         }
 
+        btnelectriccal = view.findViewById(R.id.ElectricBill)
+
+        btnelectriccal.setOnClickListener {
+            val intent = Intent(requireContext(), ElectricBill::class.java)
+            startActivity(intent)
+        }
+
+        btnwatercal = view.findViewById(R.id.waterbill)
+
+        btnwatercal.setOnClickListener {
+            val intent = Intent(requireContext(),WaterBill::class.java)
+            startActivity(intent)
+        }
+
+
 
         
 
