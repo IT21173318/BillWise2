@@ -5,19 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".ElectricBill">
-
+    tools:context=".WaterBill">
 
     <TextView
-        android:id="@+id/electric_usage"
+        android:id="@+id/water_usage"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_marginBottom="20dp"
         android:background="@color/bottom_nav_background"
         android:padding="10dp"
-        android:text="Electricity Bill Calculator"
+        android:text="Water Bill Calculator"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="32sp"
@@ -108,7 +106,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/electric_display"
+        android:id="@+id/water_display"
         android:layout_width="match_parent"
         android:layout_height="73dp"
         android:layout_marginStart="20dp"
@@ -137,7 +135,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/elecUpdate"
+            android:id="@+id/waterbtnupdate"
             android:textSize="22sp"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
@@ -148,7 +146,7 @@
             android:textColor="@color/black" />
 
         <Button
-            android:id="@+id/elecDelete"
+            android:id="@+id/waterbtnedelete"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_margin="5dp"
@@ -157,5 +155,6 @@
             android:backgroundTint="@color/bottom_nav_background"
             android:text="Delete"
             android:textColor="@color/black" />
-        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
+

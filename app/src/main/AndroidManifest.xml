@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Billwise"
         tools:targetApi="31">
         <activity
+            android:name=".WaterBill"
+            android:exported="false" />
+        <activity
+            android:name="com.WaterBill"
+            android:exported="false" />
+        <activity
             android:name=".ResultActivity"
             android:exported="false" />
         <activity

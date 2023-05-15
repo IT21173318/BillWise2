@@ -32,13 +32,26 @@ class Home : Fragment() {
             startActivity(intent)
         }
 
-        // call the categories   chage the next activity uresha
+        // call the categories   chage the next activity
         btncategories = view.findViewById(R.id.categories)
 
         btncategories.setOnClickListener {
             val intent = Intent(requireContext(), Categories::class.java)
             startActivity(intent)
         }
+        btnelectriccal = view.findViewById(R.id.ElectricBill)
+
+        btnelectriccal.setOnClickListener {
+            val intent = Intent(requireContext(), ElectricBill::class.java)
+            startActivity(intent)
+        }
+        btnwatercal = view.findViewById(R.id.waterbill)
+
+        btnwatercal.setOnClickListener {
+            val intent = Intent(requireContext(), WaterBill::class.java)
+            startActivity(intent)
+        }
+
 
 
         
