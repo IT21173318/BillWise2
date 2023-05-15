@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener
 
 class CalHistory : AppCompatActivity() {
 
+    //Declare variables
     private lateinit var sessionManager : SessionManager
     private lateinit var binding : ActivityCalHistoryBinding
     private lateinit var dbref : DatabaseReference
@@ -32,20 +33,23 @@ class CalHistory : AppCompatActivity() {
 
         sessionManager = SessionManager(this)
 
+        //Redirect in to Login
         if (!sessionManager.isLoggedIn()) {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
             finish()
         }
-
+        //recycle view find by id
         billRecyclerView = findViewById(R.id.rvH)
         billRecyclerView.layoutManager = LinearLayoutManager(this)
         billRecyclerView.setHasFixedSize(true)
 
+        //Bill models- inputs get in list
         billArrayList = arrayListOf<Bill>()
         getBillData()
     }
 
+    //get bill data in using user email
     private fun getBillData() {
         val userEmail = sessionManager.getEmail()
         dbref = FirebaseDatabase.getInstance().getReference("Home_usage")
@@ -57,19 +61,21 @@ class CalHistory : AppCompatActivity() {
                         val bill = billSnapshot.getValue(Bill::class.java)
                         billArrayList.add(bill!!)
                     }
-
+                    //Adaptor to MyAdaptorS
                     val myAdaptorS = MyAdaptorS(billArrayList)
                     billRecyclerView.adapter = myAdaptorS
                 }
             }
-
+                //create function for cancelled and get error message
             override fun onCancelled(error: DatabaseError) {
                 Log.d("CalHistory", "Error: ${error.message}")
             }
         })
     }
+
     fun buttonLogin(v: View){
 
+        //Redirect into HomeUsage
         val intent = Intent(this, HomeUsage::class.java)
         startActivity(intent)
         finish()//destroy the current activity
