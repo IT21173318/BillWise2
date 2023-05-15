@@ -12,10 +12,12 @@ import com.example.billwise.models.Item
 import com.google.firebase.database.FirebaseDatabase
 
 class EditItem : AppCompatActivity() {
+    //Declare variables in TextView
     private lateinit var nameEditText: TextView
     private lateinit var wattageEditText: TextView
     private lateinit var qtyEditText: TextView
     private var recordId: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,7 @@ class EditItem : AppCompatActivity() {
 
         setValuesInView()
 
+        //submit Details for button
         submitButton.setOnClickListener {
             openUpdateDialog(
                 intent.getStringExtra("name") ?: "",
@@ -41,6 +44,7 @@ class EditItem : AppCompatActivity() {
             )
         }
 
+        //delete details using id
         deleteButton.setOnClickListener {
             deleteRecord(
                 intent.getStringExtra("id") ?: ""
@@ -48,26 +52,31 @@ class EditItem : AppCompatActivity() {
         }
     }
 
+    //delete function
     private fun deleteRecord(id: String) {
         val dbref = FirebaseDatabase.getInstance().getReference("Items").child(id)
         val mTask = dbref.removeValue()
 
         mTask.addOnSuccessListener {
+            //Get in Deleted message and redirect into categories
             Toast.makeText(this, "Category Deleted", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, Categories::class.java)
             finish()
             startActivity(intent)
         }.addOnFailureListener { error ->
+            //Get in Deleted  Error message
             Toast.makeText(this, "Deleting Err ${error}", Toast.LENGTH_SHORT).show()
         }
     }
 
+    //set inputs values in to view
     private fun setValuesInView() {
         nameEditText.text = intent.getStringExtra("name") ?: ""
         wattageEditText.text = intent.getStringExtra("wattage") ?: ""
         qtyEditText.text = intent.getStringExtra("quantity") ?: ""
     }
 
+    //update details
     private fun openUpdateDialog(
         name: String,
         wattage: String,
@@ -80,6 +89,7 @@ class EditItem : AppCompatActivity() {
 
         mDialog.setView(mDialogView)
 
+        //Initialize details
         val edtItemName = mDialogView.findViewById<EditText>(R.id.edtItemName)
         val edtItemWattage = mDialogView.findViewById<EditText>(R.id.edtItemWattage)
         val edtItemQuantity = mDialogView.findViewById<EditText>(R.id.edtItemQuantity)
@@ -88,12 +98,12 @@ class EditItem : AppCompatActivity() {
         edtItemName.setText(intent.getStringExtra("name").toString())
         edtItemWattage.setText(intent.getStringExtra("wattage").toString())
         edtItemQuantity.setText(intent.getStringExtra("quantity").toString())
-
+        //update details with name
         mDialog.setTitle("Updating $name Record ")
 
         val alertDialog = mDialog.create()
         alertDialog.show()
-
+        //update button
         btnUpCat.setOnClickListener {
             updateItem(
                 edtItemName.text.toString(),
@@ -101,7 +111,7 @@ class EditItem : AppCompatActivity() {
                 edtItemQuantity.text.toString(),
                 id
             )
-
+            //Get successful message
             Toast.makeText(applicationContext, "Item Data Updated", Toast.LENGTH_SHORT).show()
 
             nameEditText.text = edtItemName.text.toString()
@@ -110,12 +120,13 @@ class EditItem : AppCompatActivity() {
 
             alertDialog.dismiss()
 
+            //Redirect into categories
             val intent = Intent(this, Categories::class.java)
             startActivity(intent)
             finish()
         }
     }
-
+//create function for updateItems
     private fun updateItem(
 
         name : String,
@@ -124,6 +135,7 @@ class EditItem : AppCompatActivity() {
         id: String
 
     ){
+    //database connection in Items
         val dbref = FirebaseDatabase.getInstance().getReference("Items").child(id)
         val ItemInfo = Item(name,wattage,quantity,id)
         dbref.setValue(ItemInfo)
