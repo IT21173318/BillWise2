@@ -3,34 +3,37 @@ package com.example.billwise
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.billwise.databinding.ActivityElectricBillBinding
+import com.example.billwise.databinding.ActivityHomeUsageBinding
+import com.example.billwise.databinding.ActivityWaterBillBinding
 import java.nio.file.Files.delete
 
-class ElectricBill : AppCompatActivity() {
-
-    private lateinit var binding:ActivityElectricBillBinding
+class WaterBill : AppCompatActivity() {
+    private lateinit var binding: ActivityWaterBillBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initiliseBinding()
+        initialiseBinding()
 
-        binding.electricDisplay.setOnClickListener {
-            calculateElectricBill()
+        binding.waterDisplay.setOnClickListener{
+            clcwater()
         }
-        binding.elecDelete.setOnClickListener {
+        binding.waterDelete.setOnClickListener{
             delete()
         }
 
     }
 
+    private fun delete() {
+        binding.resultText.text =null
+        binding.Enddate.text?.clear()
+        binding.StartDate.text?.clear()
+        binding.unitP.text?.clear()
+        binding.usedUnits.text?.clear()
 
-    private fun initiliseBinding() {
-        binding = ActivityElectricBillBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
     }
 
-    private fun calculateElectricBill() {
+    private fun clcwater() {
 
         val end = binding.Enddate.text.toString()
         val start = binding.StartDate.text.toString()
@@ -50,15 +53,11 @@ class ElectricBill : AppCompatActivity() {
         binding.resultText.text =displayString
 
     }
-    private fun delete() {
 
-        binding.resultText.text =null
-        binding.Enddate.text?.clear()
-        binding.StartDate.text?.clear()
-        binding.unitP.text?.clear()
-        binding.usedUnits.text?.clear()
+    private fun initialiseBinding() {
 
-
+        binding = ActivityWaterBillBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
     }
-
 }
