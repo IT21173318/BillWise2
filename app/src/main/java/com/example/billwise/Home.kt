@@ -12,6 +12,7 @@ import android.widget.Button
 
 class Home : Fragment() {
 
+    //Declere variables for Buttons
     private lateinit var btnHomeUsage: Button
     private lateinit var btncategories: Button
     private lateinit var btnelectriccal: Button
