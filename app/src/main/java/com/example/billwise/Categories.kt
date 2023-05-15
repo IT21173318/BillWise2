@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener
 
 class Categories : AppCompatActivity() {
 
+    //Declare variables
     private lateinit var itemRecyclerView : RecyclerView
     private lateinit var itemList : ArrayList<Item>
     private lateinit var dbref : DatabaseReference
@@ -31,7 +32,7 @@ class Categories : AppCompatActivity() {
         setContentView(binding.root)
 
 
-
+        //get List of items
         itemRecyclerView = findViewById(R.id.rvCat)
         itemRecyclerView.layoutManager = LinearLayoutManager(this)
         itemRecyclerView.setHasFixedSize(true)
@@ -50,13 +51,16 @@ class Categories : AppCompatActivity() {
         lateinit var btn1: Button
         lateinit var btn2: Button
 
+        //find btn from id
         btn1 = findViewById(R.id.Back)
         btn2 = findViewById(R.id.insert)
 
+        //Redirect into MainActivity
         btn1.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+        //Redirect into AddItems
 
         btn2.setOnClickListener{
             val intent = Intent(this, AddItem::class.java)
@@ -64,6 +68,7 @@ class Categories : AppCompatActivity() {
         }
     }
 
+    //create function for getItems and connection with database
     private fun getItemName(){
 
         dbref = FirebaseDatabase.getInstance().getReference("Items")
@@ -78,11 +83,12 @@ class Categories : AppCompatActivity() {
                         val item = itemSnapshot.getValue(Item::class.java)
                         itemList.add(item!!)
                     }
-
+                    //assign variables in to itemsList
                     val myAdaptor = MyAdaptor(itemList)
                     itemRecyclerView.adapter = myAdaptor
                     myAdaptor.setOnItemClickListner(object : MyAdaptor.onItemClickListner{
                         override fun onItemClick(position: Int) {
+                            //redirect to EditItem
                             val intent = Intent(this@Categories, EditItem::class.java)
                             intent.putExtra("name" ,itemList[position].name)
                             intent.putExtra("wattage",itemList[position].wattage)
@@ -105,7 +111,7 @@ class Categories : AppCompatActivity() {
 
 
             }
-
+            //function for cancelled action
             override fun onCancelled(error: DatabaseError) {
 
             }
