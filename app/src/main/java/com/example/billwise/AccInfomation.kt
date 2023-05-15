@@ -14,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class AccInfomation : AppCompatActivity() {
+    //variable declaration
     private lateinit var binding: ActivityAccInfomationBinding
     private lateinit var database: DatabaseReference
     private lateinit var sessionManager: SessionManager
@@ -31,14 +32,13 @@ class AccInfomation : AppCompatActivity() {
 
         sessionManager = SessionManager(this)
 
+        //Rederect in to Login
         if (!sessionManager.isLoggedIn()) {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
             finish()
         }
-
-
-
+        //connect database and get details into email
         val userEmail = sessionManager.getEmail()
         database = FirebaseDatabase.getInstance().reference
 
@@ -66,18 +66,18 @@ class AccInfomation : AppCompatActivity() {
                     }
                 }
             }
-
+            //Display error in database
             override fun onCancelled(error: DatabaseError) {
                 Log.e(ContentValues.TAG, "Failed to read user details", error.toException())
             }
         })
 
-
+        //update button accounts details
         binding.btnEdit.setOnClickListener {
             val intent = Intent(this, AccountInformationUpdate::class.java)
             startActivity(intent)
         }
-
+        //back in to main activity
         binding.btnBackAccInfo.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
