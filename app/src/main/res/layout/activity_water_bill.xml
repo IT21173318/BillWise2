@@ -154,6 +154,7 @@
             android:textSize="22sp"
             android:backgroundTint="@color/bottom_nav_background"
             android:text="Delete"
+            android:textStyle="bold"
             android:textColor="@color/black" />
     </LinearLayout>
 </LinearLayout>
